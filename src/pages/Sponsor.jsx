@@ -9,7 +9,7 @@ import Header from '../components/Header'
 const Sponsor = () => {
   const { sponsorName } = useParams()
   const [sponsorChallenges, setSponsorChallenges] = useState([])
-  console.log('🚀 ~ Sponsor ~ sponsorChallenges:', sponsorChallenges)
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     const getChallengesBySponsor = (sName) => {
@@ -17,14 +17,51 @@ const Sponsor = () => {
       return challenges.filter((c) => c.submittedByOrgName === sponsor.name)
     }
     const foundChallenges = getChallengesBySponsor(sponsorName)
-    console.log('🚀 ~ useEffect ~ foundChallenges:', foundChallenges)
     setSponsorChallenges(foundChallenges)
   }, [])
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value)
+  }
+
+  const messages = [
+    {
+      id: 1,
+      content:
+        'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
+    },
+    {
+      id: 2,
+      content:
+        'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
+    },
+    {
+      id: 3,
+      content:
+        'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
+    },
+    {
+      id: 4,
+      content:
+        'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ',
+    },
+  ]
 
   return (
     <div>
       <Header />
-      <div className="relative mx-auto h-screen -mt-16 max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className="relative mx-auto h-screen -mt-16 max-w-7xl px-2 pt-6 sm:px-6 lg:px-8">
+        <div className="chat-container w-full p-10 h-full">
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className="rounded-lg bg-white border mt-6 border-gray-300 shadow-sm p-6"
+            >
+              {message.content}
+            </div>
+          ))}
+        </div>
+
         <div className="absolute bottom-5 left-1/2 w-8/12 transform -translate-x-1/2">
           <div className="mt-1 mx-auto flex rounded-md shadow-md">
             <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -34,6 +71,8 @@ const Sponsor = () => {
                 id="email"
                 className="block w-full py-4 rounded-none rounded-l-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 placeholder="Search Docs"
+                onChange={handleInputChange}
+                value={searchTerm}
               />
             </div>
             <button

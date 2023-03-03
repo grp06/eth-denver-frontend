@@ -1,29 +1,11 @@
-import * as React from 'react'
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Sponsor from './pages/Sponsor'
-import Loading from './components/Loading'
-import { useAppState } from './context/app'
 
-function HomePage() {
-  const {
-    state: { loading },
-  } = useAppState()
-  if (loading) {
-    return <Loading />
-  }
-  return <Home />
+import Layout from './components/Layout'
+
+function AppRoutes() {
+    return <div>yo</div>
 }
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/:sponsorName',
-    element: <Sponsor />,
-  },
-])
-
-export default router
+export default AppRoutes
